@@ -1,6 +1,12 @@
 import { type NextPage } from "next";
+import dynamic from "next/dynamic";
 import Head from "next/head";
-import { clientEnv } from "../env/schema.mjs";
+
+const WalletMultiButtonDynamic = dynamic(
+  async () =>
+    (await import("@solana/wallet-adapter-react-ui")).WalletMultiButton,
+  { ssr: false }
+);
 
 const Home: NextPage = () => {
   return (
@@ -15,6 +21,8 @@ const Home: NextPage = () => {
         <h1 className="text-5xl font-extrabold leading-normal text-gray-500 md:text-[5rem]">
           <span className="text-black">Pixel</span> Blocks
         </h1>
+        <div className="h-2"></div>
+        <WalletMultiButtonDynamic className="btn bg-black px-6" />
       </main>
     </>
   );
